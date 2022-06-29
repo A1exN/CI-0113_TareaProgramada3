@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "./../src/tienda.h"
+#include <fstream>
 
 namespace
 {
@@ -126,6 +127,63 @@ namespace
         EXPECT_EQ(esperado, actual);
 
         delete tienda;
+    }
+
+    TEST(Tienda_Test, Escribir_Leer_Archivo_Binario_Test)
+    {
+        /// AAA
+
+        // Arrange - configurar el escenario
+        Tienda *tiendaEsperada = new Tienda();
+
+        Producto *producto = new Producto(2, "Maíz en lata", 50);
+        tiendaEsperada->AgregarProducto(producto);
+
+        // Act - ejecute la operación
+        // Escribir un archivo de prueba
+        ofstream archivoSalida;
+        archivoSalida.open("archivo_test.dat", ios::out|ios::binary);
+
+        if (!archivoSalida.is_open())
+        {
+            cerr << "No se pudo abrir archivo archivo_test.dat para escribir los datos";
+            FAIL();
+        }
+
+        tiendaEsperada->GuardarEnStreamBinario(&archivoSalida);
+
+        archivoSalida.close();
+
+        // Leer el archivo de prueba
+        ifstream archivoEntrada;
+        archivoEntrada.open("archivo_test.dat", ios::in|ios::binary);
+
+        if (!archivoEntrada.is_open())
+        {
+            cerr << "No se pudo abrir archivo archivo_test.dat para leer los datos";
+            FAIL();
+        }
+    
+        Tienda *tiendaLeida = new Tienda();
+        tiendaLeida->CargarDesdeStreamBinario(&archivoEntrada);
+
+        ostringstream streamSalidaTiendaLeida;
+        streamSalidaTiendaLeida << tiendaLeida;
+
+        ostringstream streamSalidaTiendaEsperada;
+        streamSalidaTiendaEsperada << tiendaEsperada;
+
+        delete tiendaLeida;
+        delete tiendaEsperada;
+
+        string esperado = "Productos:\n2. Maíz en lata. En existencia: 50\n";
+        string salidaPlanillaEsperada = streamSalidaTiendaEsperada.str();
+
+        // Primero, validar la salida de la planilla esperada sea correcta
+        EXPECT_EQ(esperado, salidaPlanillaEsperada);
+
+        string salidaPlanillaLeidaDeArchivo = streamSalidaTiendaEsperada.str();
+        EXPECT_EQ(esperado, salidaPlanillaLeidaDeArchivo);
     }
 
 }
