@@ -3,7 +3,18 @@
 
 Producto::Producto(int id, string nombreProducto, int existencias)
 {
-    
+    if (nombreProducto.length() == 0 || nombreProducto.length() > 20)
+    {
+        throw ExcepcionNombreProductoInvalido();
+    }
+    if (id <= 0)
+    {
+        throw ExcepcionIdentificadorProductoNoPositivo();
+    }
+    if (existencias < 0)
+    {
+        throw ExcepcionExistenciasDeProductoNegativas();
+    }
 
     this->id = id;
     strcpy(this->nombreProducto, nombreProducto.c_str());
