@@ -1,4 +1,4 @@
-FLAGS = -g -c --std=c++17
+FLAGS = -g -fPIC -c --std=c++17
 
 all:
 	mkdir -p obj
@@ -9,6 +9,8 @@ all:
 	mkdir -p bin/include
 	cp src/producto.h ./bin/include
 	cp src/tienda.h ./bin/include
+	cp src/excepcionesProducto.h ./bin/include
+	cp src/excepcionesTienda.h ./bin/include
 	
 test:
 	mkdir -p obj
