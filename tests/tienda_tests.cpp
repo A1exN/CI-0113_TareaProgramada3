@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "./../src/tienda.h"
 #include <fstream>
+#include "./../src/excepcionesTienda.h"
 
 namespace
 {
@@ -184,6 +185,82 @@ namespace
 
         string salidaPlanillaLeidaDeArchivo = streamSalidaTiendaEsperada.str();
         EXPECT_EQ(esperado, salidaPlanillaLeidaDeArchivo);
+    }
+
+    TEST(Tienda_Test, Test_Nombre_Tienda_Invalido)
+    {
+        /// AAA
+
+        // Arrange - configurar el escenario
+
+        // Act - ejecute la operación
+        EXPECT_THROW(
+           Tienda *tienda = new Tienda("La Principal de las Tiendas", "www.laprincipal.com", "Avenida 2nda, local #2", "88888888")
+        , ExcepcionNombreTiendaInvalido);
+
+        EXPECT_THROW(
+           Tienda *tienda = new Tienda("", "www.laprincipal.com", "Avenida 2nda, local #2", "88888888")
+        , ExcepcionNombreTiendaInvalido);
+
+        // Assert - valide los resultados
+    }
+
+    TEST(Tienda_Test, Test_Direccion_Internet_De_Tienda_Invalida)
+    {
+        /// AAA
+
+        // Arrange - configurar el escenario
+
+        // Act - ejecute la operación
+        EXPECT_THROW(
+           Tienda *tienda = new Tienda("La Principal", "www.laprincipaldelastiendas.com", "Avenida 2nda, local #2", "88888888")
+        , ExcepcionDireccionInternetInvalida);
+
+        EXPECT_THROW(
+           Tienda *tienda = new Tienda("La Principal", "", "Avenida 2nda, local #2", "88888888")
+        , ExcepcionDireccionInternetInvalida);
+
+        // Assert - valide los resultados
+    }
+
+    TEST(Tienda_Test, Test_Direccion_Fisica_De_Tienda_Invalida)
+    {
+        /// AAA
+
+        // Arrange - configurar el escenario
+
+        // Act - ejecute la operación
+        EXPECT_THROW(
+           Tienda *tienda = new Tienda("La Principal", "www.laprincipal.com", "Cartago Centro, Avenida 2nda, local #2", "88888888")
+        , ExcepcionDireccionFisicaInvalida);
+
+        EXPECT_THROW(
+           Tienda *tienda = new Tienda("La Principal", "www.laprincipal.com", "", "88888888")
+        , ExcepcionDireccionFisicaInvalida);
+
+        // Assert - valide los resultados
+    }
+
+    TEST(Tienda_Test, Test_Telefono_Tienda_Invalido)
+    {
+        /// AAA
+
+        // Arrange - configurar el escenario
+
+        // Act - ejecute la operación
+        EXPECT_THROW(
+           Tienda *tienda = new Tienda("La Principal", "www.laprincipal.com", "Avenida 2nda, local #2", "888")
+        , ExcepcionTelefonoTiendaInvalido);
+
+        EXPECT_THROW(
+           Tienda *tienda = new Tienda("La Principal", "www.laprincipal.com", "Avenida 2nda, local #2", "888dra88")
+        , ExcepcionTelefonoTiendaInvalido);
+
+        EXPECT_THROW(
+           Tienda *tienda = new Tienda("La Principal", "www.laprincipal.com", "Avenida 2nda, local #2", "88888888888")
+        , ExcepcionTelefonoTiendaInvalido);
+
+        // Assert - valide los resultados
     }
 
 }

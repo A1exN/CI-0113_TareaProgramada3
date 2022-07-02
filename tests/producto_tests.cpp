@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "./../src/producto.h"
+#include "./../src/excepcionesProducto.h"
 
 namespace
 {
@@ -62,6 +63,62 @@ namespace
 
         // Assert - valide los resultados
         EXPECT_EQ(esperado, actual);
+    }
+
+    TEST(Producto_Test, Test_Identificador_De_Producto_No_Positivo)
+    {
+        /// AAA
+
+        // Arrange - configurar el escenario
+
+        // Act - ejecute la operación
+
+        EXPECT_THROW(
+           Producto *producto = new Producto(0, "Bolsas de Arroz", 4)
+        , ExcepcionIdentificadorProductoNoPositivo);
+
+        EXPECT_THROW(
+           Producto *producto = new Producto(-2, "Bolsas de Arroz", 4)
+        , ExcepcionIdentificadorProductoNoPositivo);
+
+        // Assert - valide los resultados
+    }
+
+    TEST(Producto_Test, Test_Nombre_De_Producto_Invalido)
+    {
+        /// AAA
+
+        // Arrange - configurar el escenario
+        Producto *producto = new Producto(2, "Bolsas de Arroz", 4);
+
+        // Act - ejecute la operación
+
+        EXPECT_THROW(
+            producto->ModificarNombre("");
+        , ExcepcionNombreProductoInvalido);
+
+        EXPECT_THROW(
+            producto->ModificarNombre("Nombre de 20 caracteres o mas");
+        , ExcepcionNombreProductoInvalido);
+
+        delete producto;
+
+        // Assert - valide los resultados
+    }
+
+    TEST(Producto_Test, Test_Existencias_De_Producto_Negativas)
+    {
+        /// AAA
+
+        // Arrange - configurar el escenario
+
+        // Act - ejecute la operación
+
+        EXPECT_THROW(
+           Producto *producto = new Producto(2, "Bolsas de Arroz", -3)
+        , ExcepcionExistenciasDeProductoNegativas);
+
+        // Assert - valide los resultados
     }
 
 }
