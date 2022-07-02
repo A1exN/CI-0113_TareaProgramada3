@@ -1,7 +1,10 @@
 #include "producto.h"
+#include "excepcionesProducto.h"
 
 Producto::Producto(int id, string nombreProducto, int existencias)
 {
+    
+
     this->id = id;
     strcpy(this->nombreProducto, nombreProducto.c_str());
     this->existencias = existencias;
@@ -21,11 +24,21 @@ Producto::~Producto()
 
 void Producto::ModificarNombre(string nuevoNombre)
 {
+    if (nuevoNombre.length() == 0 or nuevoNombre.length() > 20)
+    {
+        throw ExcepcionNombreProductoInvalido();
+    }
+    
     strcpy(this->nombreProducto, nuevoNombre.c_str());
 }
 
 void Producto::ModificarExistencias(int nuevaCantidadEnExistencia)
 {
+    if (nuevaCantidadEnExistencia < 0)
+    {
+        throw ExcepcionExistenciasDeProductoNegativas();
+    }
+
     this->existencias = nuevaCantidadEnExistencia;
 }
 
