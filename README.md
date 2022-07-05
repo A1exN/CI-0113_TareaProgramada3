@@ -18,6 +18,8 @@ Biblioteca que permite administrar las existencias de los productos de una tiend
 
 La estructura de un producto es la siguiente:
 
+<center>
+
 |    Campo    | Offset | Bytes |
 | ----------- |:------:|:-----:|
 | ID          | 0      | 4     |
@@ -25,7 +27,11 @@ La estructura de un producto es la siguiente:
 | Existencias | 24     | 4     |
 | Total Bytes |        | 28    |
 
+</center>
+
 La estructura de una tienda es la siguiente:
+
+<center>
 
 |       Campo       | Offset |   Bytes   |
 | ----------------- |:------:|:---------:|
@@ -35,6 +41,8 @@ La estructura de una tienda es la siguiente:
 | Teléfono          | 63     |  8        |
 | Productos         | 71     | 28*$n$    |
 | Total Bytes       |        | 71+28*$n$ |
+
+</center>
 
 En donde $n$ es la cantidad de productos en la tienda.
 
