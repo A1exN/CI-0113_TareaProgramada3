@@ -24,3 +24,4 @@ test:
 clean:
 	rm -Rf bin
 	rm -Rf obj
+	rm archivo_test.dat
